@@ -146,6 +146,8 @@ plt.xlabel('epochs')
 plt.legend()
 plt.figure()
 
+####################################################################################################################################
+
 ## Importacion de librerias para el procesamiento y lectura de imagenes.
 import numpy as np
 from keras.preprocessing.image import load_img, img_to_array
@@ -186,6 +188,8 @@ def predecirImagen(file):
     print("Prediccion: REAL")
 
   return correcto
+
+####################################################################################################################################
 
 ## Llamada a la funcion de prediccion, pasando como parametro la ruta de la imagen a probar.
 predecirImagen('./drive/MyDrive/tfm/Pruebas/tablet_163.JPG')
