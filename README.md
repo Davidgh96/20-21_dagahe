@@ -14,32 +14,65 @@ Alumno: **David Garcia Herrero**
 Tutora : **Cristina Conde Vilda**
 
 
-## Motivación
+# Resumen del proyecto
 
-- Gran aumento del uso de tecnologías biométricas en la gestión de acceso.
-- Falta de protección frente ataques a estos sistemas biométricos.
-- Criticidad ante perdida de datos biométricos.
+En un mundo donde el uso de las biometrías no para de expandirse, muchas entidades han apostado por utilizarlas en sus controles de acceso para proteger sus recursos, debido a su gran potencial, siendo los sistemas faciales uno de los mas utilizados, por su gran rendimiento a un coste no muy elevado. El problema es que a la vez que se están expandiendo estas tecnologías,  el interés de los hackers y cibercriminales aumenta, a la vez que los ataques e intentos de ruptura. 
+Dentro de estos ataques a sistemas biométricos faciales, los sensores que recogen y analizan esos datos, son un objetivo muy codiciado por los hackers. Conseguir acceso a un recurso valioso al que no tenemos acceso o impedir que un sujeto con permisos no pueda acceder a él, es uno de los objetivos principales.  Para ello, han creado un tipo de ataque, conocido por Ataques por presentación, que simulan las biometrías reales de una persona para acceder a un recurso protegido. 
+Con el objetivo de  evitar estos ataques y  como parte principal de este proyecto final, hemos desarrollado un sistema que es capaz de recibir una imagen e identificar, con una precisión muy alta, si se trata de una imagen real o de un ataque por presentación.
+Para ello hemos utilizado redes neuronales convolucionales, las cuales hablaremos en siguientes secciones, que nos ayudaran a identificar la veracidad de las imágenes y la creación de un módulo totalmente funcional y muy útil para los sistemas de acceso biométricos faciales. 
 
-## Objetivos
+# Entorno de uso
 
-- Realizar un análisis entre los tipos de redes neuronales actuales y seleccionar el mas idóneo para el proyecto.
-- Implementar un panel grafico para la gestión de imágenes. 
-- Desarrollar un modulo que sea capaz de recibir una imagen y devolver si se trata de un ataque de presentación o no.
-- Realizar una evaluación estandarizada sobre los datos obtenidos.
+## Google Colab (Recomendado)
 
-## Metodologías y herramientas
+Es la manera mas sencilla y recomendada, debido a su mayor eficiencia y sencillez. Para ello, abrimos Google Colab en una nueva hoja y usaremos el fichero **ModuloCompletoGoogleColab.py**. Para mayor comodidad, este fichero se añadira en tres bloques diferentes a la hoja de Google Colab, para poder ejecutarse de manera independiente (el fichero tiene dos separaciones con ####### para distinguir las tres secciones). Tendremos un primer bloque de entrenamiento, un segundo de carga del modelo y la funcion de prediccion, y una tercera para realizar las predicciones.
 
-- Uso de **metodologías agiles**, con entregas parciales pero completas cada cierto tiempo determinado.
-- Uso de un lenguaje que se adapte a las necesidad, posiblemente interpretado (**Python**)
-- Utilización de redes neuronales, en nuestro caso convolucionales, utilizando técnicas de **Deep Learning**.
-- Alguna framework o librería grafica para desarrollar un panel de usuario (**PyQt**).
+## Instalar Tensorflow en local
 
-## Desarrollo actual y planificación
+Es necesario realizar la instalcion de Tensorflow y Keras, dependencias que utiliza el proyecto. En este enlace nos ayuda a relizar todas las instalaciones con pip:   https://www.tensorflow.org/install/pip?hl=es-419 
+Para utilizar el modulo de esta manera, utilizaremos los ficheros **createModelVGG19.py** **fitModel.py** y **predictModel.py** , en ese orden.
 
-- Ampliación de conocimiento acerca de las **redes neuronales** y **Deep Learning**, además de las tecnologías de gestión de acceso actuales basadas en biometrías.
-- Búsqueda bibliográfica realizada en relación al estado del arte actual en **PAD** (*Presentation attack detection*) y **CNN**(*Convolutional neural networks*). 
-- Estimación en consenso con la tutora de la profundidad del proyecto, adaptándose al tiempo disponible para su realización.
-- Estudio de la Base de Datos **FRAV-Attack** ( una recopilación de multitud de imágenes con ataques de presentación con diferentes dispositivos), que serán los datos con los que se - trabaje.
-- Finalización del desarrollo a mediados de agosto, con un par de semanas finales para la realización de la memoria técnica.
+# Configuracion del modulo
 
-[## Video Presentacion](https://www.youtube.com/watch?v=z-kizoiZMWE&ab_channel=DavidGarc%C3%ADaHerrero).
+## Utilizando el modelo ya entrenado por el alumno (Recomendado)
+
+En Google Colab, debemos subir los ficheros **modeloFirstVersion.h5** **pesosFirstVersion.h5** y las imagenes dentro de la carpeta **imagenes_prueba/** a nuestra cuenta de Drive , para poder acceso a ellas.
+A continuacion debemos setear las siguientes variables dentro de **ModuloCompletoGoogleColab.py** en Google Colab.
+
+***modelo = 'path_al_fichero/modeloFirstVersion.h5'***   
+***pesos_modelo = 'path_al_fichero/pesosFirstVersion.h5'***
+
+Al tener ya los dos ficheros con el modelo y sus pesos, no tenemos que realizar entrenamiento y el tiempo de ejecucion es minimo. Por ello, solo debemos ejecutar los dos ultimos bloques comentados anteriormente, dejando el primero (el del entrenamiento) sin ejecutar. 
+
+## Entrenando uno mismo el modelo
+
+El tiempo aumenta sustancialmente y ademas por proteccion de datos, no podemos subir la base de datos con las imaganes utilizadas para el proyecto ( excepto las subidas en la carpeta ***imaganes_pruebas***, autorizadas previamente). Si se dipone de una base de datos propia con imaganes correctas y ataques por presentacion, se configura de la siguiente manera.  
+ 
+ ![image](https://user-images.githubusercontent.com/25246266/131260889-24bc7134-6b7d-48c7-9307-1d25d393f365.png)
+
+Creamos ese arbol de carpetas con las imaganes clasificadas. Un 80% de las imagenes deben ir a la carpeta Entrenamiento y el otro 20% a la Validacion. A parte, dejaremos alguna imagen aparte para añadir a la carpeta Pruebas (o usad las proporcionadas en este proyecto). Todo este arbol de carpetas estara subido a Google Drive, para realizar el entrenamiento en Google Colab.
+Una vez esta subido todo, configuramos de nuevo las siguientes rutas:
+
+***path_entrenamiento = 'path_a_la_carpeta/Entrenamiento'***
+***path_validacion = 'path_a_la_carpeta/Validacion'***
+
+***sequentialModel.save('path_destino/modelo.h5')***
+***sequentialModel.save_weights('path_destino/pesos.h5')***
+
+***modelo = 'path_destino/modelo.h5'***
+***pesos_modelo = 'path_destino/pesos.h5'***
+
+De esta manera, generaremos de cero los ficheros con el modelo entrenado y sus pesos, pero el tiempo es mayor. Para ello, ahora si debemos ejecutar los tres bloques en Google Colab y no necesitamos usar los ficheros **modeloFirstVersion.h5** **pesosFirstVersion.h5** proporcionados por el alumno.
+
+# Uso del modulo
+
+Una vez tenemos todo entrenado y tenemos los ficheros con el modelo y los pesos, podemos realizar las predicciones, utilizando el ultimo bloque del codigo:
+
+***predecirImagen('path_a_carpeta/Pruebas/NOMBRE_IMAGEN.JPG')***
+
+# Bibligrafia
+
+***Google Colab:*** https://colab.research.google.com/ <br>
+***Tensorflow :*** https://www.tensorflow.org/api_docs/python/tf <br>
+***Keras Applications :*** https://keras.io/api/applications/  <br>
+***StackOverflow :*** https://es.stackoverflow.com/ <br>
