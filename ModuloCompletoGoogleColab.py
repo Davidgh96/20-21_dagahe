@@ -158,8 +158,8 @@ longitud = 224
 altura = 224
 
 ## Rutas del modelo y sus pesos previamente guardados.
-modelo = './drive/MyDrive/tfm/modeloFirstVersion.h5'
-pesos_modelo = './drive/MyDrive/tfm/pesosFirstVersion.h5'
+modelo = './drive/MyDrive/tfm/modulo/modeloFirstVersion.h5'
+pesos_modelo = './drive/MyDrive/tfm/modulo/pesosFirstVersion.h5'
 
 ## Carga del modelo y sus pesos.
 sequentialModel = load_model(modelo)
