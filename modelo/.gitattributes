@@ -1,2 +1,0 @@
-pesosFirstVersion.h5 filter=lfs diff=lfs merge=lfs -text
-modeloFirstVersion.h5 filter=lfs diff=lfs merge=lfs -text
